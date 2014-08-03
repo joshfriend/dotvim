@@ -5,20 +5,20 @@
 	path = bundle/nerdtree
 	url = http://github.com/scrooloose/nerdtree.git
 [submodule "bundle/vim-nerdtree-tabs"]
-	path = bundle/vim-nerdtree-tabs
+	path = bundle/nerdtree-tabs
 	url = http://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = http://github.com/scrooloose/syntastic.git
 [submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
+	path = bundle/airline
 	url = http://github.com/bling/vim-airline.git
 [submodule "bundle/vim-colors-solarized"]
-	path = bundle/vim-colors-solarized
+	path = bundle/colors-solarized
 	url = http://github.com/altercation/vim-colors-solarized.git
 [submodule "bundle/vim-gitgutter"]
-	path = bundle/vim-gitgutter
+	path = bundle/gitgutter
 	url = http://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/vim-pathogen"]
-	path = bundle/vim-pathogen
+	path = bundle/pathogen
 	url = http://github.com/tpope/vim-pathogen.git
