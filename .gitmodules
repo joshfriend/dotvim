@@ -22,3 +22,6 @@
 [submodule "bundle/vim-pathogen"]
 	path = bundle/pathogen
 	url = http://github.com/tpope/vim-pathogen.git
+[submodule "bundle/youcompleteme"]
+	path = bundle/youcompleteme
+	url = https://github.com/Valloric/YouCompleteMe.git
