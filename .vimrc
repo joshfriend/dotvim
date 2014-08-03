@@ -1,5 +1,5 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
-let g:pathogen_disabled = ['vim-powerline']
 
 syntax on
 filetype plugin indent on
