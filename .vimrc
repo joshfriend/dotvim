@@ -91,7 +91,8 @@ set term=xterm-256color
 autocmd vimenter * NERDTree
 " Autoclose NERDTree if the last buffer is closed
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeIgnore = ['\.py[cod]$']
+let NERDTreeIgnore = ['\.py[cod]$', '\.swp$', '\.git$']
 let g:nerdtree_tabs_open_on_console_startup=1
+let NERDTreeShowHidden=1
 
 " vim:set ft=vim et sw=2:
