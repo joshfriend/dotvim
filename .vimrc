@@ -74,7 +74,7 @@ colorscheme solarized
 highlight SignColumn ctermbg=8
 
 " Enable mouse stuff
-set mouse=nicr
+set mouse=a
 
 " Enable arrow keys to wrap lines
 set whichwrap+=<,>,h,l,[,]
