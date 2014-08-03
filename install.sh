@@ -14,3 +14,9 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 cd ~/.vim
 git submodule update --init
 
+# Run Vundle plugin install
+vim +PluginInstall +qall
+
+# Install YouCompleteMe
+~/.vim/bundle/youcompleteme/install.sh --clang-completer
+
