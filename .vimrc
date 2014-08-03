@@ -76,6 +76,9 @@ highlight SignColumn ctermbg=8
 " Enable mouse stuff
 set mouse=nicr
 
+" Enable arrow keys to wrap lines
+set whichwrap+=<,>,h,l,[,]
+
 " Powerline font config
 let g:airline_powerline_fonts = 1
 set guifont=Meslo\ for\ Powerline:h12
