@@ -6,6 +6,7 @@ The `vim` plugins and configuration that I use.
 Run this to install the plugins and configuration
 
     $ curl http://raw.githubusercontent.com/joshfriend/dotvim/master/install.sh | bash
+    $ vim +PluginInstall +qall
 
 ## Notes
 `vim-powerline` requires a patched font, several of which can be obtained
