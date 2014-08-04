@@ -245,6 +245,9 @@ iabbrev vrcf `~/.vimrc` file
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
 
+" Use semicolon as colon to save shift press in normal mode
+nmap ; :
+
 noremap  <F1> :checktime<cr>
 inoremap <F1> <esc>:checktime<cr>
 
