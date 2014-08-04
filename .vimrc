@@ -22,6 +22,13 @@ Plugin 'scrooloose/syntastic'
 Plugin 'valloric/youcompleteme'
 Plugin 'ciaranm/securemodelines'
 Plugin 'sjl/gundo.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'townk/vim-autoclose'
+Plugin 'raimondi/delimitmate'
+Plugin 'tpope/vim-dispatch'
+Plugin 'klen/python-mode'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-commentary'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -818,6 +825,7 @@ augroup ft_markdown
     au!
 
     au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
+    au BUfNewFile,BufRead *.md setlocal filetype=markdown foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
@@ -1144,11 +1152,6 @@ nnoremap <leader>L :LinediffReset<cr>
 nnoremap \| :call MakeGreen('')<cr>
 
 " }}}
-" Maven {{{
-
-let g:maven_disable_mappings = 1
-
-" }}}
 " NERD Tree {{{
 
 noremap  <F2> :NERDTreeToggle<cr>
@@ -1174,23 +1177,6 @@ let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
 let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
-
-" }}}
-" OrgMode {{{
-
-let g:org_heading_shade_leading_stars = 0
-" let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-
-" let g:org_todo_keywords = ['TODO', '|', 'DONE']
-
-" let g:org_debug = 1
-
-" }}}
-" Paredit {{{
-
-let g:paredit_smartjump = 1
-let g:paredit_shortmaps = 0
-let g:paredit_electric_return = 1
 
 " }}}
 " Powerline/Airline {{{
@@ -1239,23 +1225,6 @@ let g:pymode_rope_vim_completion = 1
 let g:pymode_rope_guess_project = 1
 let g:pymode_rope_goto_def_newwin = 0
 let g:pymode_rope_always_show_complete_menu = 0
-
-" }}}
-" Scratch {{{
-
-command! ScratchToggle call ScratchToggle()
-
-function! ScratchToggle()
-    if exists("w:is_scratch_window")
-        unlet w:is_scratch_window
-        exec "q"
-    else
-        exec "normal! :Sscratch\<cr>\<C-W>L"
-        let w:is_scratch_window = 1
-    endif
-endfunction
-
-nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
 " }}}
 " Secure Modelines {{{
@@ -1320,14 +1289,6 @@ let g:splice_initial_scrollbind_compare = 0
 let g:splice_initial_scrollbind_path = 0
 
 let g:splice_wrap = "nowrap"
-
-" }}}
-" tslime {{{
-
-let g:tslime_ensure_trailing_newlines = 1
-let g:tslime_normal_mapping = '<localleader>T'
-let g:tslime_visual_mapping = '<localleader>t'
-let g:tslime_vars_mapping = '<localleader>t'
 
 " }}}
 " YankRing {{{
