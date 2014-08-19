@@ -15,7 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
@@ -23,12 +23,13 @@ Plugin 'valloric/youcompleteme'
 Plugin 'ciaranm/securemodelines'
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'townk/vim-autoclose'
+" Plugin 'townk/vim-autoclose'
 Plugin 'raimondi/delimitmate'
 Plugin 'tpope/vim-dispatch'
 Plugin 'klen/python-mode'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-commentary'
+Plugin 'alfredodeza/coveragepy.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -246,7 +247,7 @@ call MakeSpacelessIabbrev('bbs/', 'http://bitbucket.org/joshfriend/')
 call MakeSpacelessIabbrev('gh/',  'http://github.com/')
 call MakeSpacelessIabbrev('ghs/', 'http://github.com/joshfriend/')
 
-iabbrev jf@ josh@fueledbycaffeine.om
+iabbrev jf@ josh@fueledbycaffeine.com
 iabbrev vrcf `~/.vimrc` file
 
 " }}}
@@ -309,9 +310,6 @@ nnoremap <F8> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 " Clean trailing whitespace
 nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
-" Send visual selection to paste.stevelosh.com
-vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
 
 " Select entire buffer
 nnoremap vaa ggvGg_
@@ -826,6 +824,7 @@ augroup ft_markdown
 
     au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
     au BUfNewFile,BufRead *.md setlocal filetype=markdown foldlevel=1
+    au BufNewFile,BufRead *.apib setlocal filetype=markdown foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
@@ -1086,8 +1085,6 @@ nnoremap <leader>m :Dispatch<cr>
 " }}}
 " Fugitive {{{
 
-let g:fugitive_github_domains = ['github.banksimple.com']
-
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
@@ -1116,40 +1113,10 @@ highlight SignColumn ctermbg=8
 let g:gitgutter_max_signs = 9001
 
 " }}}
-" Gundo {{{
-
-nnoremap <F5> :GundoToggle<CR>
-
-let g:gundo_debug = 1
-let g:gundo_preview_bottom = 1
-let g:gundo_tree_statusline = "Gundo"
-let g:gundo_preview_statusline = "Gundo Preview"
-
-" }}}
-" Haskellmode {{{
-
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-let g:ghc = "/usr/local/bin/ghc"
-
-" }}}
-" HTML5 {{{
-
-let g:event_handler_attributes_complete = 0
-let g:rdfa_attributes_complete = 0
-let g:microdata_attributes_complete = 0
-let g:atia_attributes_complete = 0
-
-" }}}
 " Linediff {{{
 
 vnoremap <leader>l :Linediff<cr>
 nnoremap <leader>L :LinediffReset<cr>
-
-" }}}
-" Makegreen {{{
-
-nnoremap \| :call MakeGreen('')<cr>
 
 " }}}
 " NERD Tree {{{
@@ -1170,8 +1137,10 @@ let NERDTreeHighlightCursorline = 1
 let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-                    \ '.*\.midi$']
+                    \ '.*\.midi$', '__pycache__', '.*\.db$', '^\.coverage$', '^env$',
+                    \ '^\.ropeproject', '^\.git$', '\.DS_Store']
 
+let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
@@ -1236,18 +1205,6 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
-" Sparkup {{{
-
-let g:sparkupNextMapping = '<c-s>'
-
-"}}}
-" Supertab {{{
-
-let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabCrMapping = 1
-
-"}}}
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
@@ -1267,48 +1224,9 @@ let g:syntastic_scala_checkers = ['fsc']
 nnoremap <leader>C :SyntasticCheck<cr>
 
 " }}}
-" Splice {{{
-
-let g:splice_prefix = "-"
-
-let g:splice_initial_mode = "grid"
-
-let g:splice_initial_layout_grid = 0
-let g:splice_initial_layout_loupe = 0
-let g:splice_initial_layout_compare = 0
-let g:splice_initial_layout_path = 0
-
-let g:splice_initial_diff_grid = 1
-let g:splice_initial_diff_loupe = 0
-let g:splice_initial_diff_compare = 1
-let g:splice_initial_diff_path = 0
-
-let g:splice_initial_scrollbind_grid = 0
-let g:splice_initial_scrollbind_loupe = 0
-let g:splice_initial_scrollbind_compare = 0
-let g:splice_initial_scrollbind_path = 0
-
-let g:splice_wrap = "nowrap"
-
-" }}}
-" YankRing {{{
-
-function! YRRunAfterMaps()
-    " Make Y yank to end of line.
-    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-
-    " Fix L and H in operator-pending mode, so yH and such works.
-    omap <expr> L YRMapsExpression("", "$")
-    omap <expr> H YRMapsExpression("", "^")
-
-    " Don't clobber the yank register when pasting over text in visual mode.
-    vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
-endfunction
-
-" }}}
 " YouCompleteMe ----------------------------------------------------------- {{{
 " Gets rid of the preview buffer asap
-" let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_autoclose_preview_window_after_completion=1
 " }}}
 
@@ -1590,8 +1508,8 @@ command! -nargs=1 J call s:JumpTo(<f-args>)
 nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
 xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
 
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+" nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+" xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
 
 function! s:CopyMotionForType(type)
     if a:type ==# 'v'
