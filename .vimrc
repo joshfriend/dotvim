@@ -1146,19 +1146,21 @@ let g:syntastic_java_checker = 'javac'
 let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "active_filetypes": [],
-            \ "passive_filetypes": ['java', 'html', 'rst']
+            \ "passive_filetypes": ['java', 'html', 'rst', 'python']
             \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
-let g:syntastic_scala_checkers = ['fsc']
 
 nnoremap <leader>C :SyntasticCheck<cr>
 
 " }}}
 " YouCompleteMe ----------------------------------------------------------- {{{
+
+" YCM doesn't like homebrew python...
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 " Gets rid of the preview buffer asap
 let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_autoclose_preview_window_after_completion=1
+
 " }}}
 
 " }}}
