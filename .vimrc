@@ -643,14 +643,6 @@ set foldtext=MyFoldText()
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
 
-" Assembly {{{
-
-augroup ft_asm
-    au!
-    au FileType asm setlocal noexpandtab shiftwidth=8 tabstop=8 softtabstop=8
-augroup END
-
-" }}}
 " C {{{
 
 augroup ft_c
@@ -732,23 +724,6 @@ augroup ft_django
 augroup END
 
 " }}}
-" DTrace {{{
-
-augroup ft_dtrace
-    au!
-
-    autocmd BufNewFile,BufRead *.d set filetype=dtrace
-augroup END
-
-" }}}
-" Haskell {{{
-
-augroup ft_haskell
-    au!
-    au BufEnter *.hs compiler ghc
-augroup END
-
-" }}}
 " HTML, Django, Jinja, Dram {{{
 
 let g:html_indent_tags = ['p', 'li']
@@ -808,15 +783,6 @@ augroup ft_javascript
 augroup END
 
 " }}}
-" Mail {{{
-
-augroup ft_mail
-    au!
-
-    au Filetype mail setlocal spell
-augroup END
-
-" }}}
 " Markdown {{{
 
 augroup ft_markdown
@@ -834,26 +800,6 @@ augroup ft_markdown
 
     au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
     au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
-augroup END
-
-" }}}
-" Mercurial {{{
-
-augroup ft_mercurial
-    au!
-
-    au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
-augroup END
-
-" }}}
-" Mutt {{{
-
-augroup ft_muttrc
-    au!
-
-    au BufRead,BufNewFile *.muttrc set ft=muttrc
-
-    au FileType muttrc setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END
 
 " }}}
@@ -909,8 +855,6 @@ augroup ft_python
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
-    " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
-    " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
@@ -999,19 +943,6 @@ augroup END
 
 nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
-
-" }}}
-" Autoclose {{{
-
-nmap <Leader>x <Plug>ToggleAutoCloseMappings
-
-" }}}
-" Clam {{{
-
-nnoremap ! :Clam<space>
-vnoremap ! :ClamVisual<space>
-let g:clam_autoreturn = 1
-let g:clam_debug = 1
 
 " }}}
 " Commentary {{{
@@ -1426,17 +1357,6 @@ endfunction
 " Stuff that should probably be broken out into plugins, but hasn't proved to be
 " worth the time to do so just yet.
 
-" Synstack {{{
-
-" Show the stack of syntax hilighting classes affecting whatever is under the
-" cursor.
-function! SynStack()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc
-
-nnoremap <F7> :call SynStack()<CR>
-
-" }}}
 " Diffwhite Toggle {{{
 
 set diffopt-=iwhite
@@ -1483,15 +1403,6 @@ endfunction " }}}
 
 nmap <silent> <f3> :ErrorsToggle<cr>
 nmap <silent> <f4> :QFixToggle<cr>
-
-" }}}
-" J {{{
-
-function! s:JumpTo(dest)
-  call system("tmux split-window -h 'j " . a:dest . "; and myctags &; and vim .'")
-endfunction
-
-command! -nargs=1 J call s:JumpTo(<f-args>)
 
 " }}}
 " Ack motions {{{
@@ -1688,20 +1599,6 @@ command! -range MarkUnchanged call MarkUnchanged(<line1>, <line2>)
 " vnoremap <leader>m :MarkChanged<cr>
 " nnoremap <leader>M :MarkUnchanged<cr>
 " vnoremap <leader>M :MarkUnchanged<cr>
-
-" }}}
-" MS to UTC {{{
-
-function! MS2UTC(ms)
-    let seconds = strpart(a:ms, 0, strlen(a:ms) - 3)
-    return substitute(system("date -ur " . seconds), "\n\n*", "", "")
-endfunction
-
-function! MS2UTCWord()
-    return MS2UTC(expand("<cword>"))
-endfunction
-
-nnoremap <leader>U :echo MS2UTCWord()<cr>
 
 " }}}
 
