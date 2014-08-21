@@ -372,9 +372,6 @@ nnoremap =- V`]=
 nnoremap J mzJ`z
 
 " Join an entire paragraph.
-"
-" Useful for writing GitHub comments in actual Markdown and then translating it
-" to their bastardized version of Markdown.
 nnoremap <leader>J mzvipJ`z
 
 " Split line (sister to [J]oin lines)
@@ -573,6 +570,10 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+" easier moving between tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
 
 noremap <leader>v <C-w>v
 
@@ -1069,7 +1070,9 @@ let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
                     \ '.*\.midi$', '__pycache__', '.*\.db$', '^\.coverage$', '^env$',
-                    \ '^\.ropeproject', '^\.git$', '\.DS_Store']
+                    \ '^\.ropeproject', '^\.git$', '\.DS_Store', 'bower.*',
+                    \ '\.idea', '\.tmp', '.*cache$', '.*\.zip', 'node_modules',
+                    \ '.*\.egg']
 
 let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
