@@ -1115,8 +1115,8 @@ let g:pymode_breakpoint = 0
 " }}}
 
 " Lint Options {{{
-let g:pymode_lint = 1
-let g:pymode_lint_checkers = ['pyflakes', 'pep8']
+let g:pymode_lint = 0
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'pep257']
 
 nnoremap <leader>L :PymodeLint
 " }}}
@@ -1149,14 +1149,17 @@ let g:secure_modelines_allowed_items = [
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
+let g:syntastic_enable_baloon = 1
 let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump = 0
-let g:syntastic_java_checker = 'javac'
+let g:syntastic_check_on_wq = 1
+let g:syntastic_java_checkers = ['javac']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_style_error_symbol = 'E>'
+let g:syntastic_style_warning_symbol = 'W>'
 let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "active_filetypes": [],
-            \ "passive_filetypes": ['java', 'html', 'rst', 'python']
+            \ "passive_filetypes": ['java', 'html', 'rst']
             \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 
