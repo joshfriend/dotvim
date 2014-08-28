@@ -22,6 +22,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
 Plugin 'mileszs/ack.vim'
 Plugin 'raimondi/delimitmate'
+Plugin 'reinh/vim-makegreen'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'sjl/gundo.vim'
@@ -29,7 +30,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'valloric/youcompleteme'
-Plugin 'wincent/Command-T'
+Plugin 'suan/vim-instant-markdown'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -164,10 +165,7 @@ set wildignore+=*.pyc                            " Python byte code
 
 set wildignore+=*.orig                           " Merge resolution files
 
-" Clojure/Leiningen
-set wildignore+=classes
-set wildignore+=lib
-
+set wildignore+=env,venv,.ropeproject,.idea
 " }}}
 " Line Return {{{
 
@@ -732,6 +730,8 @@ let g:html_indent_tags = ['p', 'li']
 augroup ft_html
     au!
 
+    au FileType html setlocal ts=2 sts=2 sw=2
+
     au BufNewFile,BufRead *.html setlocal filetype=htmldjango
     au BufNewFile,BufRead *.dram setlocal filetype=htmldjango
 
@@ -768,6 +768,8 @@ augroup END
 
 augroup ft_javascript
     au!
+
+    au FileType javascript setlocal ts=2 sts=2 sw=2
 
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
@@ -963,9 +965,9 @@ augroup END
 " }}}
 " Ctrl-P {{{
 
-let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_dont_split = 'NERD_tree_1'
 let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'rw'
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
@@ -983,25 +985,13 @@ let g:ctrlp_prompt_mappings = {
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
 
-let ctrlp_filter_greps = "".
-    \ "egrep -iv '\\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-    \ ")$' | " .
-    \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
-    \ ")'"
-
-let my_ctrlp_user_command = "" .
-    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-    \ ctrlp_filter_greps
-
-let my_ctrlp_git_command = "" .
-    \ "cd %s && git ls-files --exclude-standard -co | " .
-    \ ctrlp_filter_greps
-
-let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
-
-let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+        \ },
+    \ 'fallback': 'find %s -type f'
+    \ }
 
 " }}}
 " DelimitMate {{{
@@ -1045,6 +1035,12 @@ highlight SignColumn ctermbg=8
 let g:gitgutter_max_signs = 9001
 
 " }}}
+" Instant Markdown {{{
+
+let g:instant_markdown_slow = 0
+let g:instant_markdown_autostart = 1
+
+" }}}
 " Linediff {{{
 
 vnoremap <leader>l :Linediff<cr>
@@ -1072,7 +1068,7 @@ let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index
                     \ '.*\.midi$', '__pycache__', '.*\.db$', '^\.coverage$', '^env$',
                     \ '^\.ropeproject', '^\.git$', '\.DS_Store', 'bower.*',
                     \ '\.idea', '\.tmp', '.*cache$', '.*\.zip', 'node_modules',
-                    \ '.*\.egg']
+                    \ '.*\.egg', 'celerybeat-schedule']
 
 let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
