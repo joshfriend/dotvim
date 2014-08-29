@@ -14,6 +14,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugin 'airblade/vim-gitgutter'
 Plugin 'alfredodeza/coveragepy.vim'
+Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'ciaranm/securemodelines'
@@ -1002,7 +1003,6 @@ let delimitMate_excluded_ft = "clojure,lisp"
 " Dispatch {{{
 
 nnoremap <leader>d :Dispatch<cr>
-nnoremap <leader>m :Dispatch<cr>
 
 " }}}
 " Fugitive {{{
@@ -1134,6 +1134,11 @@ let g:pymode_syntax_builtin_objs = 1
 let g:pymode_syntax_print_as_function = 0
 let g:pymode_syntax_space_errors = 0
 " }}}
+
+" }}}
+" pytest.vim {{{
+
+nnoremap <leader>m :Pytest method<cr>
 
 " }}}
 " Secure Modelines {{{
